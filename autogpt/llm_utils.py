@@ -83,8 +83,7 @@ def create_chat_completion(
         try:
             if CFG.use_azure:
                 response = openai.ChatCompletion.create(
-                    deployment_id=CFG.get_azure_deployment_id_for_model(model),
-                    model=model,
+                    engine=CFG.get_azure_deployment_id_for_model(model),
                     messages=messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
@@ -134,7 +133,6 @@ def create_chat_completion(
             raise RuntimeError(f"Failed to get response after {num_retries} retries")
         else:
             quit(1)
-
     return response.choices[0].message["content"]
 
 
